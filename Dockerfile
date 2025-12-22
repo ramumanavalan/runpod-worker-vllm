@@ -10,14 +10,13 @@ COPY builder/requirements.txt /requirements.txt
 
 RUN python3 --version
 RUN pip3 --version
-RUN pip --version
 
 RUN --mount=type=cache,target=/root/.cache/pip \
-    python3 -m pip install --upgrade pip && \
-    python3 -m pip install --upgrade -r /requirements.txt
+    pip3 install --upgrade pip && \
+    pip3 install --upgrade -r /requirements.txt
 
 # Install vLLM (switching back to pip installs since issues that required building fork are fixed and space optimization is not as important since caching) and FlashInfer 
-RUN pip install vllm==0.13.0 
+RUN pip3 install vllm==0.13.0 
     # && \
     # python3 -m pip install flashinfer -i https://flashinfer.ai/whl/cu130/torch2.3
 
