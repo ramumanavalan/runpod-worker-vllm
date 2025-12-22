@@ -8,7 +8,6 @@ RUN ldconfig /usr/local/cuda-12.9/compat/
 # Install Python dependencies
 COPY builder/requirements.txt /requirements.txt
 
-RUN python --version
 RUN python3 --version
 RUN pip3 --version
 RUN pip --version
