@@ -1,9 +1,9 @@
-FROM nvidia/cuda:13.0.0-base-ubuntu24.04 
+FROM nvidia/cuda:12.9.0-base-ubuntu24.04 
 
 RUN apt-get update -y \
     && apt-get install -y python3-pip
 
-RUN ldconfig /usr/local/cuda-13.0/compat/
+RUN ldconfig /usr/local/cuda-12.9/compat/
 
 # Install Python dependencies
 COPY builder/requirements.txt /requirements.txt
