@@ -14,10 +14,13 @@ async def handler(job):
     try:
         from utils import JobInput
         job_input = JobInput(job["input"])
-        engine = openai_engine if job_input.openai_route else vllm_engine
-        results_generator = engine.generate(job_input)
-        async for batch in results_generator:
-            yield batch
+        if job_input.ping:
+            yield {"ping":"success"}
+        else:
+            engine = openai_engine if job_input.openai_route else vllm_engine
+            results_generator = engine.generate(job_input)
+            async for batch in results_generator:
+                yield batch
     except Exception as e:
         error_str = str(e)
         full_traceback = traceback.format_exc()
