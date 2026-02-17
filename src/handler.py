@@ -14,7 +14,7 @@ async def handler(job):
     try:
         from utils import JobInput
         job_input = JobInput(job["input"])
-        if job_input.get("ping", False):
+        if getattr(job_input, "ping", False):
             yield {"ping":"success"}
         else:
             engine = openai_engine if job_input.openai_route else vllm_engine
