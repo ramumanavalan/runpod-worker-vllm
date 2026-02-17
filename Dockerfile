@@ -15,7 +15,7 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 # Install vLLM with FlashInfer - use CUDA 12.8 PyTorch wheels (compatible with vLLM 0.15.0)
 RUN python3 -m pip install --upgrade pip && \
-    python3 -m pip install "vllm==0.15.1" --extra-index-url https://download.pytorch.org/whl/cu128
+    python3 -m pip install "vllm==0.15.0" --extra-index-url https://download.pytorch.org/whl/cu128
 
 
 
@@ -60,13 +60,6 @@ RUN if [ "${VLLM_NIGHTLY}" = "true" ]; then \
 fi
 
 COPY src /src
-RUN --mount=type=secret,id=HF_TOKEN,required=false \
-    if [ -f /run/secrets/HF_TOKEN ]; then \
-    export HF_TOKEN=$(cat /run/secrets/HF_TOKEN); \
-    fi && \
-    if [ -n "$MODEL_NAME" ]; then \
-    python3 /src/download_model.py; \
-    fi
 
 # Start the handler
 CMD ["python3", "/src/handler.py"]
